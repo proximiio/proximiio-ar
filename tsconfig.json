@@ -1,0 +1,17 @@
+{
+	"compilerOptions": {
+		"target": "ES2020",
+		"module": "ESNext",
+		"lib": ["ES2020", "DOM", "DOM.Iterable", "webworker"],
+		"moduleResolution": "node",
+		"declaration": true,
+		"allowJs": true,
+		"outDir": "./lib",
+		"strict": false,
+		"allowSyntheticDefaultImports": true,
+		"skipLibCheck": true,
+		"types": ["w3c-image-capture"]
+	},
+	"include": ["src"],
+	"exclude": ["node_modules", "**/__tests__/*"]
+}
