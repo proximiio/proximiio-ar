@@ -1,6 +1,6 @@
 {
 	"name": "proximiio-ar",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "Proximi.io AR",
 	"main": "lib/index.js",
 	"types": "lib/index.d.ts",
