@@ -115,7 +115,7 @@ class ARSession {
 				InjectCSS({ id: 'ar-session-css', css });
 			}
 
-			let $container = document.createElement('div');
+			const $container = document.createElement('div');
 			$container.id = 'container';
 			state.$container = $container;
 			document.body.appendChild($container);
@@ -136,7 +136,7 @@ class ARSession {
 
 	static async stop(destinationFeatureId?: string) {
 		console.log('Stopping XR Session');
-		let $container = document.getElementById('container');
+		const $container = document.getElementById('container');
 		$container.remove();
 		document.getElementById('ar-session-css').remove();
 

@@ -39,9 +39,9 @@ class ARButton {
 			}
 
 			function onSessionEnded() {
-				//console.log('onSessionEnded', destinationFeatureId);
+				// console.log('onSessionEnded', destinationFeatureId);
 				button.textContent = options.startText ? options.startText : 'START AR';
-				//buttonSessionEnd(destinationFeatureId);
+				// buttonSessionEnd(destinationFeatureId);
 				button.classList.remove('active');
 			}
 
@@ -50,7 +50,7 @@ class ARButton {
 
 			button.textContent = options.startText ? options.startText : 'START AR';
 
-			button.onclick = function () {
+			button.onclick = () => {
 				if (currentSession === null) {
 					currentSession = ARSession.start({
 						immersalToken: options.immersalToken,

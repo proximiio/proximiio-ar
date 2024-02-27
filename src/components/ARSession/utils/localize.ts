@@ -12,9 +12,9 @@ let mapId: number = -1;
 let locWidth = 0;
 let locHeight = 0;
 let isLocalizing = false;
-let imageDownScale = 0.25;
-let focalLen = 0;
-let focalLenConfidence = 0;
+const imageDownScale: number = 0.25;
+const focalLen: number = 0;
+const focalLenConfidence: number = 0;
 
 let locWorker: Worker;
 
@@ -25,17 +25,17 @@ export const initLocalizeWorker = () => {
 	locWorker.addEventListener('message', (e) => {
 		const { type, data } = e.data;
 
-		if (type == 'Init') {
+		if (type === 'Init') {
 			console.log(`MAIN PosePlugin init: [${data}]`);
 			if (mapId !== -1) {
 				devLoadMap(mapId);
 			}
-		} else if (type == 'LoadMap') {
+		} else if (type === 'LoadMap') {
 			console.log(`MAIN Map Loaded: [${data}]`);
 			if (data >= 0) {
 				state.mapHandle = data;
 			}
-		} else if (type == 'Localize') {
+		} else if (type === 'Localize') {
 			const { r } = data;
 			if (r >= 0) {
 				state.locCount++;
@@ -71,7 +71,7 @@ export const devLocalize = (time: number) => {
 	};
 	const camRot = { x: 0, y: 0, z: 0, w: 1 };
 
-	if (SOLVER_TYPE == 1) {
+	if (SOLVER_TYPE === 1) {
 		_Q.multiply(Qrot); // rotate 180 on X
 		camRot.x = _Q.x;
 		camRot.y = _Q.y;
@@ -79,7 +79,7 @@ export const devLocalize = (time: number) => {
 		camRot.w = _Q.w;
 	}
 
-	if (focalLenConfidence == 1) intr.fx = intr.fy = focalLen;
+	if (focalLenConfidence === 1) intr.fx = intr.fy = focalLen;
 	else intr.fx = intr.fy = 0.0;
 
 	locWorker.postMessage({
@@ -146,7 +146,7 @@ const getImageData = () => {
 	state.pixels = _ctx.getImageData(0, 0, locWidth, locHeight).data;
 };
 
-export const devLoadMap = (mapId: number) => {
+export const devLoadMap = () => {
 	const url = `${baseUrl}${downloadMap}?token=${state.immersalToken}&id=${state.immersalMapId}`;
 	const xhr = new XMLHttpRequest();
 	xhr.responseType = 'arraybuffer';

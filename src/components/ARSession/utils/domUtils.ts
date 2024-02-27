@@ -99,7 +99,7 @@ const InjectCSS = ({ id, css }: { id: string; css: string }) => {
 	style.id = id;
 	style.innerHTML = css;
 
-	let head = document.getElementsByTagName('head')[0];
+	const head = document.getElementsByTagName('head')[0];
 	head.insertBefore(style, head.firstChild);
 };
 

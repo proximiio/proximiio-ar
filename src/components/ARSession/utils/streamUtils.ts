@@ -105,10 +105,10 @@ const gotStream = async (media: Camera): Promise<void> => {
 			'../../../../assets/helvetiker_regular.typeface.json',
 			import.meta.url
 		).href,
-		function (font) {
+		(font) => {
 			// Create text geometry
 			const textGeometry = new TextGeometry('Take me there', {
-				font: font,
+				font,
 				size: 1, // Size of the text
 				height: 0.1, // Thickness of the text
 				curveSegments: 12, // Number of segments for smooth curves

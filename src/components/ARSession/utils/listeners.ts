@@ -57,7 +57,7 @@ const onWindowResize = () => {
 
 const onWindowFocus = () => {
 	console.log('window focus');
-	//if (typeof icvReset !== 'undefined') icvReset();
+	// if (typeof icvReset !== 'undefined') icvReset();
 	// startStreams();
 };
 
