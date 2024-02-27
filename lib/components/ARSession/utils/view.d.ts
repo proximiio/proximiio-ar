@@ -1,4 +1,4 @@
-import { WebGLRenderer, PerspectiveCamera, Scene, Quaternion, Vector3, Mesh, Raycaster } from 'three';
+import { WebGLRenderer, PerspectiveCamera, Scene, Quaternion, Vector3, Mesh, Raycaster } from "three";
 declare class ARCamView {
     renderer: WebGLRenderer;
     camera: PerspectiveCamera;

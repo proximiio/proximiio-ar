@@ -28,7 +28,7 @@ export const initLocalizeWorker = () => {
     if (type === "Init") {
       console.log(`MAIN PosePlugin init: [${data}]`);
       if (mapId !== -1) {
-        devLoadMap(mapId);
+        devLoadMap();
       }
     } else if (type === "LoadMap") {
       console.log(`MAIN Map Loaded: [${data}]`);

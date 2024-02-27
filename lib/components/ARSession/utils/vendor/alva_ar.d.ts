@@ -42,9 +42,9 @@ export class AlvaAR {
         p1: number;
         p2: number;
     };
-    findCameraPoseWithIMU(frame: any, orientation: any, motion: any): Uint8Array | Int8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array;
-    findCameraPose(frame: any): Uint8Array | Int8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array;
-    findPlane(numIterations?: number): Uint8Array | Int8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array;
+    findCameraPoseWithIMU(frame: any, orientation: any, motion: any): Int16Array | Int8Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Float32Array | Float64Array;
+    findCameraPose(frame: any): Int16Array | Int8Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Float32Array | Float64Array;
+    findPlane(numIterations?: number): Int16Array | Int8Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Float32Array | Float64Array;
     getFramePoints(): any[];
     reset(): void;
 }
@@ -53,9 +53,9 @@ declare class SharedMemory {
     wasm: any;
     type: any;
     ptr: any;
-    TypedArray: Uint8ArrayConstructor | Int8ArrayConstructor | Int16ArrayConstructor | Uint16ArrayConstructor | Int32ArrayConstructor | Uint32ArrayConstructor | Float32ArrayConstructor | Float64ArrayConstructor;
-    heap: Uint8Array | Int8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array;
+    TypedArray: Int8ArrayConstructor | Int16ArrayConstructor | Int32ArrayConstructor | Uint8ArrayConstructor | Uint16ArrayConstructor | Uint32ArrayConstructor | Float32ArrayConstructor | Float64ArrayConstructor;
+    heap: Int16Array | Int8Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Float32Array | Float64Array;
     write(data: any): void;
-    read(length: any): Uint8Array | Int8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array;
+    read(length: any): Int16Array | Int8Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Float32Array | Float64Array;
     dispose(): void;
 }

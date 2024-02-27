@@ -1,4 +1,4 @@
-import { Euler, Matrix4, Quaternion } from 'three';
+import { Euler, Matrix4, Quaternion } from "three";
 interface StateModel {
     $container?: HTMLElement;
     $view: HTMLElement;
