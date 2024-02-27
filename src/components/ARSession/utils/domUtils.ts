@@ -3,50 +3,50 @@
  * Returns false otherwise.
  */
 export async function browserHasImmersiveArCompatibility(): Promise<boolean> {
-	if (window.navigator.xr) {
-		const isSupported: boolean = await window.navigator.xr.isSessionSupported(
-			'immersive-ar'
-		);
-		console.info(
-			`[DEBUG] ${
-				isSupported
-					? 'Browser supports immersive-ar'
-					: 'Browser does not support immersive-ar'
-			}`
-		);
-		return isSupported;
-	}
-	return false;
+  if (window.navigator.xr) {
+    const isSupported: boolean = await window.navigator.xr.isSessionSupported(
+      "immersive-ar"
+    );
+    console.info(
+      `[DEBUG] ${
+        isSupported
+          ? "Browser supports immersive-ar"
+          : "Browser does not support immersive-ar"
+      }`
+    );
+    return isSupported;
+  }
+  return false;
 }
 
 /*
  * Create and display message when no XR capabilities are found.
  */
 export function displayUnsupportedBrowserMessage(): void {
-	const appRoot: HTMLElement | null = document.getElementById('app-root');
-	const bigMessage: HTMLParagraphElement = document.createElement('p');
+  const appRoot: HTMLElement | null = document.getElementById("app-root");
+  const bigMessage: HTMLParagraphElement = document.createElement("p");
 
-	bigMessage.innerText = '😢 Oh no!';
-	if (appRoot) {
-		appRoot.appendChild(bigMessage);
-	}
+  bigMessage.innerText = "😢 Oh no!";
+  if (appRoot) {
+    appRoot.appendChild(bigMessage);
+  }
 
-	const middleMessage: HTMLParagraphElement = document.createElement('p');
-	middleMessage.innerText =
-		'Your browser does not seem to support augmented reality with WebXR.';
+  const middleMessage: HTMLParagraphElement = document.createElement("p");
+  middleMessage.innerText =
+    "Your browser does not seem to support augmented reality with WebXR.";
 
-	if (appRoot) {
-		appRoot.appendChild(middleMessage);
-	}
+  if (appRoot) {
+    appRoot.appendChild(middleMessage);
+  }
 
-	const helpMessage: HTMLParagraphElement = document.createElement('p');
+  const helpMessage: HTMLParagraphElement = document.createElement("p");
 
-	helpMessage.innerText =
-		'Try opening the page using a recent version of Chrome on Android.';
+  helpMessage.innerText =
+    "Try opening the page using a recent version of Chrome on Android.";
 
-	if (appRoot) {
-		appRoot.appendChild(helpMessage);
-	}
+  if (appRoot) {
+    appRoot.appendChild(helpMessage);
+  }
 }
 
 /**
@@ -54,59 +54,59 @@ export function displayUnsupportedBrowserMessage(): void {
  * WebXR with immersive-ar mode.
  */
 export function displayIntroductionMessage() {
-	const appRoot: HTMLElement | null = document.getElementById('app-root');
+  const appRoot: HTMLElement | null = document.getElementById("app-root");
 
-	const bigMessage: HTMLParagraphElement = document.createElement('h1');
-	bigMessage.innerText = 'Welcome! 👋';
+  const bigMessage: HTMLParagraphElement = document.createElement("h1");
+  bigMessage.innerText = "Welcome! 👋";
 
-	const middleMessage: HTMLParagraphElement = document.createElement('p');
-	middleMessage.innerText =
-		'Press the button below to enter the AR experience.';
+  const middleMessage: HTMLParagraphElement = document.createElement("p");
+  middleMessage.innerText =
+    "Press the button below to enter the AR experience.";
 
-	const helpMessage: HTMLParagraphElement = document.createElement('p');
-	helpMessage.innerText =
-		'Note: The app works best in a well lit environment, with enough space to move around.';
+  const helpMessage: HTMLParagraphElement = document.createElement("p");
+  helpMessage.innerText =
+    "Note: The app works best in a well lit environment, with enough space to move around.";
 
-	helpMessage.style.fontSize = '16px';
-	helpMessage.style.fontWeight = 'bold';
-	helpMessage.style.padding = '64px 64px 0px 64px';
-	helpMessage.style.opacity = '0.8';
+  helpMessage.style.fontSize = "16px";
+  helpMessage.style.fontWeight = "bold";
+  helpMessage.style.padding = "64px 64px 0px 64px";
+  helpMessage.style.opacity = "0.8";
 
-	if (appRoot) {
-		appRoot.appendChild(bigMessage);
-		appRoot.appendChild(middleMessage);
-		appRoot.appendChild(helpMessage);
-	}
+  if (appRoot) {
+    appRoot.appendChild(bigMessage);
+    appRoot.appendChild(middleMessage);
+    appRoot.appendChild(helpMessage);
+  }
 
-	return () => {
-		if (appRoot) {
-			if (appRoot.contains(middleMessage)) {
-				appRoot.removeChild(middleMessage);
-			}
-			if (appRoot.contains(bigMessage)) {
-				appRoot.removeChild(bigMessage);
-			}
-			if (appRoot.contains(helpMessage)) {
-				appRoot.removeChild(helpMessage);
-			}
-		}
-	};
+  return () => {
+    if (appRoot) {
+      if (appRoot.contains(middleMessage)) {
+        appRoot.removeChild(middleMessage);
+      }
+      if (appRoot.contains(bigMessage)) {
+        appRoot.removeChild(bigMessage);
+      }
+      if (appRoot.contains(helpMessage)) {
+        appRoot.removeChild(helpMessage);
+      }
+    }
+  };
 }
 
 const InjectCSS = ({ id, css }: { id: string; css: string }) => {
-	// Create the css
-	const style = document.createElement('style');
-	style.id = id;
-	style.innerHTML = css;
+  // Create the css
+  const style = document.createElement("style");
+  style.id = id;
+  style.innerHTML = css;
 
-	const head = document.getElementsByTagName('head')[0];
-	head.insertBefore(style, head.firstChild);
+  const head = document.getElementsByTagName("head")[0];
+  head.insertBefore(style, head.firstChild);
 };
 
 export default {
-	browserHasImmersiveArCompatibility,
-	displayIntroductionMessage,
-	displayUnsupportedBrowserMessage,
+  browserHasImmersiveArCompatibility,
+  displayIntroductionMessage,
+  displayUnsupportedBrowserMessage,
 };
 
 export { InjectCSS };

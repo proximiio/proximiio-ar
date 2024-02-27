@@ -1,4 +1,8 @@
-export type Observer = (event?: string, data?: any, eventable?: Eventable) => any;
+export type Observer = (
+  event?: string,
+  data?: any,
+  eventable?: Eventable
+) => any;
 
 export class Eventable {
   _observers?: Observer[] = [];
@@ -10,7 +14,9 @@ export class Eventable {
   }
 
   off(observer: Observer) {
-    const index = this._observers ? this._observers.findIndex((o) => o === observer) : 0;
+    const index = this._observers
+      ? this._observers.findIndex((o) => o === observer)
+      : 0;
     if (index >= 0) {
       if (this._observers) {
         this._observers.splice(index, 1);
