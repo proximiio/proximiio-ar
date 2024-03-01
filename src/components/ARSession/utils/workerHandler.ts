@@ -24,7 +24,7 @@ class WorkerHandler {
 			devLoadMap();
 		}
 
-		if (type == 'LoadMap') {
+		if (type === 'LoadMap') {
 			console.log(`MAIN Map Loaded`);
 			if (data >= 0) {
 				state.mapHandle = data;
@@ -55,7 +55,7 @@ function workerFunction() {
 	);
 
 	(self as any).Module = {
-		onRuntimeInitialized: function () {
+		onRuntimeInitialized: () => {
 			pluginInit((self as any).Module);
 		},
 	};
@@ -83,19 +83,19 @@ function workerFunction() {
 		function handleMessage(event: MessageEvent) {
 			const { type, data } = event.data as MessageData;
 
-			if (type == 'LoadMap') {
+			if (type === 'LoadMap') {
 				const map = data;
 				const ptrMap = this._malloc(map.length * map.BYTES_PER_ELEMENT);
 				this.HEAPU8.set(map, ptrMap);
-				let r = this._icvLoadMap(ptrMap);
+				const icvMap = this._icvLoadMap(ptrMap);
 				this._free(ptrMap);
-				self.postMessage({ type: 'LoadMap', data: r });
+				self.postMessage({ type: 'LoadMap', data: icvMap });
 			}
 
-			if (type == 'FreeMap') {
+			if (type === 'FreeMap') {
 				console.log('FreeMap Loaded');
-				let r = this._icvFreeMap(data);
-				self.postMessage({ type: 'FreeMap', data: r });
+				const icfFreeMap = this._icvFreeMap(data);
+				self.postMessage({ type: 'FreeMap', data: icfFreeMap });
 			}
 
 			if (type === 'Localize') {
@@ -143,7 +143,7 @@ function workerFunction() {
 				);
 				this.HEAPF32.set(camRot, ptrCamRot >> 2);
 
-				let r = this._wasmLocalize(
+				const r = this._wasmLocalize(
 					ptrPos,
 					ptrRot,
 					width,
@@ -194,19 +194,18 @@ function workerFunction() {
 				});
 			}
 
-			if (type == 'GetInteger') {
-				let r = this._icvGetInteger(data);
-				self.postMessage({ type: 'GetInteger', data: r });
+			if (type === 'GetInteger') {
+				const getInteger = this._icvGetInteger(data);
+				self.postMessage({ type: 'GetInteger', data: getInteger });
 			}
 
-			if (type == 'SetInteger') {
-				let r = this._icvSetInteger(data[0], data[1]);
-				self.postMessage({ type: 'SetInteger', data: r });
+			if (type === 'SetInteger') {
+				const setInteger = this._icvSetInteger(data[0], data[1]);
+				self.postMessage({ type: 'SetInteger', data: setInteger });
 			}
 		}
 
-		let r = 0;
 		self.addEventListener('message', handleMessage);
-		self.postMessage({ type: 'Init', data: r });
+		self.postMessage({ type: 'Init', data: 0 });
 	}
 }

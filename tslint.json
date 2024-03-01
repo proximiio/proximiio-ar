@@ -5,6 +5,7 @@
 		"max-classes-per-file": false,
 		"no-unused-expression": false,
 		"no-string-literal": false,
+		"no-bitwise": false,
 		"variable-name": [
 			true,
 			"allow-pascal-case",

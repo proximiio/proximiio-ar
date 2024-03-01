@@ -11,7 +11,7 @@ const Qrot = new Quaternion();
 
 let locWidth = 0;
 let locHeight = 0;
-let worker = new WorkerHandler();
+const worker = new WorkerHandler();
 const imageDownScale: number = 0.25;
 const focalLen: number = 0;
 const focalLenConfidence: number = 0;
