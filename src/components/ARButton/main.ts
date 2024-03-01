@@ -1,139 +1,143 @@
-import { ARSession } from "../ARSession/main";
-import { browserHasImmersiveArCompatibility } from "../ARSession/utils/domUtils";
+import { ARSession } from '../ARSession/main';
+import { browserHasImmersiveArCompatibility } from '../ARSession/utils/domUtils';
+import { state } from '../ARSession/utils/state';
 
 export interface Options {
-  immersalToken?: string;
-  immersalMapId?: number;
-  destinationFeatureId?: string;
-  parentElementId?: string;
-  startText?: string;
-  stopText?: string;
+	immersalToken?: string;
+	immersalMapId?: number;
+	destinationFeatureId?: string;
+	parentElementId?: string;
+	startText?: string;
+	stopText?: string;
 }
 
 const xr = (navigator as any)?.xr as any;
 
 class ARButton {
-  static async createButton(options: Options = {}) {
-    if (!options.immersalToken) {
-      console.error("No Immersal token provided");
-      return;
-    }
-    if (!options.immersalMapId) {
-      console.error("No Immersal map id provided");
-      return;
-    }
+	static async createButton(options: Options = {}) {
+		if (!options.immersalToken) {
+			console.error('No Immersal token provided');
+			return;
+		}
+		if (!options.immersalMapId) {
+			console.error('No Immersal map id provided');
+			return;
+		}
 
-    const button = document.createElement("button");
+		state.immersalToken = options.immersalToken;
+		state.immersalMapId = options.immersalMapId;
 
-    function showStartAR(/*device*/) {
-      console.log("showStartAR");
-      let currentSession = null;
-      const session = new ARSession();
+		const button = document.createElement('button');
 
-      session.onStart(onSessionStarted);
-      session.onStop(onSessionEnded);
+		function showStartAR(/*device*/) {
+			console.log('showStartAR');
+			let currentSession = null;
+			const session = new ARSession();
 
-      function onSessionStarted() {
-        button.textContent = options.stopText ? options.stopText : "STOP AR";
-        button.classList.add("active");
-      }
+			session.onStart(onSessionStarted);
+			session.onStop(onSessionEnded);
 
-      function onSessionEnded() {
-        // console.log('onSessionEnded', destinationFeatureId);
-        button.textContent = options.startText ? options.startText : "START AR";
-        // buttonSessionEnd(destinationFeatureId);
-        button.classList.remove("active");
-      }
+			function onSessionStarted() {
+				button.textContent = options.stopText ? options.stopText : 'STOP AR';
+				button.classList.add('active');
+			}
 
-      button.style.display = "";
-      button.style.cursor = "pointer";
+			function onSessionEnded() {
+				// console.log('onSessionEnded', destinationFeatureId);
+				button.textContent = options.startText ? options.startText : 'START AR';
+				// buttonSessionEnd(destinationFeatureId);
+				button.classList.remove('active');
+			}
 
-      button.textContent = options.startText ? options.startText : "START AR";
+			button.style.display = '';
+			button.style.cursor = 'pointer';
 
-      button.onclick = () => {
-        if (currentSession === null) {
-          currentSession = ARSession.start({
-            immersalToken: options.immersalToken,
-            immersalMapId: options.immersalMapId,
-            destinationFeatureId: options.destinationFeatureId,
-          });
-        } else {
-          ARSession.stop();
-          currentSession = null;
-        }
-      };
+			button.textContent = options.startText ? options.startText : 'START AR';
 
-      if (options.parentElementId) {
-        const parentElement = document.getElementById(options.parentElementId);
-        parentElement.appendChild(button);
-      } else {
-        document.body.appendChild(button);
-      }
-    }
+			button.onclick = () => {
+				if (currentSession === null) {
+					currentSession = ARSession.start({
+						immersalToken: options.immersalToken,
+						immersalMapId: options.immersalMapId,
+						destinationFeatureId: options.destinationFeatureId,
+					});
+				} else {
+					ARSession.stop();
+					currentSession = null;
+				}
+			};
 
-    function disableButton() {
-      button.style.display = "";
-      button.style.cursor = "auto";
+			if (options.parentElementId) {
+				const parentElement = document.getElementById(options.parentElementId);
+				parentElement.appendChild(button);
+			} else {
+				document.body.appendChild(button);
+			}
+		}
 
-      button.onmouseenter = null;
-      button.onmouseleave = null;
+		function disableButton() {
+			button.style.display = '';
+			button.style.cursor = 'auto';
 
-      button.onclick = null;
-    }
+			button.onmouseenter = null;
+			button.onmouseleave = null;
 
-    function showARNotSupported() {
-      disableButton();
+			button.onclick = null;
+		}
 
-      button.textContent = "AR NOT SUPPORTED";
-    }
+		function showARNotSupported() {
+			disableButton();
 
-    function stylizeElement(element) {
-      element.style.position = "absolute";
-      element.style.bottom = "20px";
-      element.style.padding = "12px 6px";
-      element.style.border = "1px solid #fff";
-      element.style.borderRadius = "4px";
-      element.style.background = "rgba(0,0,0,0.1)";
-      element.style.color = "#fff";
-      element.style.font = "normal 13px sans-serif";
-      element.style.textAlign = "center";
-      element.style.opacity = "0.5";
-      element.style.outline = "none";
-      element.style.zIndex = "999";
-    }
+			button.textContent = 'AR NOT SUPPORTED';
+		}
 
-    // Check if browser supports WebXR with "immersive-ar"
-    const immersiveArSupported = await browserHasImmersiveArCompatibility();
+		function stylizeElement(element) {
+			element.style.position = 'absolute';
+			element.style.bottom = '20px';
+			element.style.padding = '12px 6px';
+			element.style.border = '1px solid #fff';
+			element.style.borderRadius = '4px';
+			element.style.background = 'rgba(0,0,0,0.1)';
+			element.style.color = '#fff';
+			element.style.font = 'normal 13px sans-serif';
+			element.style.textAlign = 'center';
+			element.style.opacity = '0.5';
+			element.style.outline = 'none';
+			element.style.zIndex = '999';
+		}
 
-    if (xr) {
-      button.id = "ARButton";
-      button.style.display = "none";
+		// Check if browser supports WebXR with "immersive-ar"
+		const immersiveArSupported = await browserHasImmersiveArCompatibility();
 
-      // stylizeElement(button);
+		if (xr) {
+			button.id = 'ARButton';
+			button.style.display = 'none';
 
-      immersiveArSupported ? showStartAR() : showARNotSupported();
+			// stylizeElement(button);
 
-      return button;
-    } else {
-      const message = document.createElement("a");
+			immersiveArSupported ? showStartAR() : showARNotSupported();
 
-      if (window.isSecureContext === false) {
-        message.href = document.location.href.replace(/^http:/, "https:");
-        message.innerHTML = "WEBXR NEEDS HTTPS"; // TODO Improve message
-      } else {
-        message.href = "https://immersiveweb.dev/";
-        message.innerHTML = "WEBXR NOT AVAILABLE";
-      }
+			return button;
+		} else {
+			const message = document.createElement('a');
 
-      message.style.left = "calc(50% - 90px)";
-      message.style.width = "180px";
-      message.style.textDecoration = "none";
+			if (window.isSecureContext === false) {
+				message.href = document.location.href.replace(/^http:/, 'https:');
+				message.innerHTML = 'WEBXR NEEDS HTTPS'; // TODO Improve message
+			} else {
+				message.href = 'https://immersiveweb.dev/';
+				message.innerHTML = 'WEBXR NOT AVAILABLE';
+			}
 
-      stylizeElement(message);
+			message.style.left = 'calc(50% - 90px)';
+			message.style.width = '180px';
+			message.style.textDecoration = 'none';
 
-      return message;
-    }
-  }
+			stylizeElement(message);
+
+			return message;
+		}
+	}
 }
 
 export { ARButton };

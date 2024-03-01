@@ -7,6 +7,6 @@ export interface Options {
     stopText?: string;
 }
 declare class ARButton {
-    static createButton(options?: Options): Promise<HTMLButtonElement | HTMLAnchorElement>;
+    static createButton(options?: Options): Promise<HTMLAnchorElement | HTMLButtonElement>;
 }
 export { ARButton };

@@ -1,4 +1,4 @@
-import { Euler, Matrix4, Quaternion } from "three";
+import { Euler, Matrix4, Quaternion } from 'three';
 interface StateModel {
     $container?: HTMLElement;
     $view: HTMLElement;
@@ -32,6 +32,7 @@ interface StateModel {
     immersalToken?: string;
     immersalMapId?: number;
     destinationFeatureId?: string;
+    isLocalizing: boolean;
 }
 export declare const state: StateModel;
 export {};

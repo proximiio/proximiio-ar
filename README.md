@@ -1,24 +1,6 @@
 # Proximi.io AR
 
-## Getting work
-
-In case of cloning the repo from GitHub please run `npm install` afterwards.
-
-### Using just in browser
-
-This requires to load js file into script tag of html file.
-
-```javascript
-<script src='lib/proximiio-ar.js'></script>
-```
-
-### Using in node.js
-
-```javascript
-const ProximiioAR = require('lib/index').default;
-```
-
-### Using with modern javascript frameworks (Angular, React)
+## Installation
 
 Install with npm
 
@@ -26,7 +8,9 @@ Install with npm
 npm install proximiio-ar
 ```
 
-and then import into project with
+## Usage
+
+import into project with
 
 ```javascript
 import { ARButton, ARSession } from 'proximiio-ar';
