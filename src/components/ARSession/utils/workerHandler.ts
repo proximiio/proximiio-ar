@@ -184,10 +184,10 @@ function workerFunction() {
 				self.postMessage({
 					type: 'Localize',
 					data: {
-						r: r,
-						pos: pos,
-						rot: rot,
-						time: time,
+						r,
+						pos,
+						rot,
+						time,
 						gyro: G,
 						focalLength: focalLen,
 					},
